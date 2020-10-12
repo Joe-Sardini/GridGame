@@ -9,6 +9,7 @@ const createStore = () => {
         Selections: 5,
         Score: 0,
         TotalWinnings: 0,
+        RunsCompleted: 0,
       },
     }),
     mutations: {
@@ -35,6 +36,9 @@ const createStore = () => {
         state.Player_1.Cash += amount
         state.Player_1.TotalWinnings += amount
       },
+      INCREMENT_RUN_COUNTER(state) {
+        state.Player_1.RunsCompleted++
+      },
     },
     getters: {},
     actions: {
@@ -55,6 +59,9 @@ const createStore = () => {
       },
       addFunds({ commit }, amount) {
         commit('ADD_FUNDS', amount)
+      },
+      IncrementRunsCounter({ commit }) {
+        commit('INCREMENT_RUN_COUNTER')
       },
     },
   })

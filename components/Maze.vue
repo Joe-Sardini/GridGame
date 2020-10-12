@@ -1,17 +1,32 @@
 <template>
-  <div class="title">
-    Grid
-    <b-button variant="outline-primary" v-on:click="onStart()">Start</b-button>
-    <b-button variant="outline-primary" v-on:click="onPause()">Pause</b-button>
-    <b-button variant="outline-primary" v-on:click="onReset()">Reset</b-button>
-    <b-button variant="outline-primary" v-on:click="InitializeGrid()">Initialize Grid</b-button>
-    {{ this.Player_1.Cash | money }}
-    S:{{ this.Player_1.Selections }}
-    TW:{{ this.Player_1.TotalWinnings | money }}
-    <b-modal id="endScreen">The game is over, you've won {{ this.winnings | money }}</b-modal>
-    <div class="main">
-      <div ref="container"></div>
+  <div>
+    <div class="playerInfo">
+      <span class="playerStat" v-b-tooltip.hover title="Your cash">
+        {{ this.Player_1.Cash | money }}
+      </span>
+      <span class="playerStat" v-b-tooltip.hover title="Remaining number of squares you may select">
+        S:{{ this.Player_1.Selections }}
+      </span>
+      <span class="playerStat" v-b-tooltip.hover title="Total Winnings (this run)">
+        TW:{{ this.Player_1.TotalWinnings | money }}
+      </span>
     </div>
+    <div class="title">
+      Squares
+      <b-button variant="outline-primary" v-on:click="onStart()">Start Game</b-button>
+      <b-button variant="outline-primary" v-on:click="onPause()">Pause Game</b-button>
+      ||
+      <b-button variant="outline-primary" v-on:click="InitializeGrid()">Initialize Grid</b-button>
+      ||
+      <b-button variant="outline-primary" v-on:click="onReset()">Reset Player Stats</b-button>
+      <span class="completedRuns">
+        Runs:{{ this.Player_1.RunsCompleted }}
+      </span>
+      <div class="main">
+        <div ref="container"></div>
+      </div>
+    </div>
+    <b-modal id="endScreen">The game is over, you've won {{ this.winnings | money }}</b-modal>
   </div>
 </template>
 
@@ -89,7 +104,8 @@ export default {
       decrementSelection: 'decrementSelection',
       withdrawFunds: 'withdrawFunds',
       addFunds: 'addFunds',
-      resetSelections: 'resetSelections'
+      resetSelections: 'resetSelections',
+      IncrementRunsCounter: 'IncrementRunsCounter'
     }),
     createGrid() {
       for (let x = 0; x <= this.BOARD_SIZE; x++) {
@@ -112,10 +128,12 @@ export default {
       this.$store.dispatch('resetPlayer');
     },
     onStart() {
+      this.withdrawFunds(500);
       this.animate();
     },
     endAnimation(){
       clearInterval(this.si);
+      this.$store.dispatch('IncrementRunsCounter');
       this.checkForMatches();
       this.$bvModal.show('endScreen');
     },
@@ -159,5 +177,18 @@ export default {
   font-size: 35px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: bolder;
+}
+.playerInfo {
+  font-size: 35px;
+  font-family: cursive;
+}
+.playerStat {
+  width: 30%;
+  display: inline-block; 
+  border: tomato;
+  border-style: solid;
+}
+.completedRuns{
+float: right;
 }
 </style>
