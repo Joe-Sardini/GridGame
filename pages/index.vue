@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Maze />
+    <Squares />
   </div>
 </template>
 
