@@ -21,6 +21,7 @@ const createStore = () => {
         state.Player_1.Selections = 5
         state.Player_1.Cash = 10000
         state.Player_1.TotalWinnings = 0
+        state.Player_1.RunsCompleted = 0
       },
       RESET_SELECTIONS(state) {
         state.Player_1.Selections = 5

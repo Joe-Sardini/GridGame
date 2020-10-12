@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="gameHeader">
+      Guess the Squares
+    </div>
     <div class="playerInfo">
       <span class="playerStat" v-b-tooltip.hover title="Your cash">
         {{ this.Player_1.Cash | money }}
@@ -13,7 +16,7 @@
     </div>
     <div class="title">
       Squares
-      <b-button variant="outline-primary" v-on:click="onStart()">Start Game</b-button>
+      <b-button variant="outline-primary" v-on:click="onStart()" v-b-tooltip.hover title="Pressing start cost $500">Start Game</b-button>
       <b-button variant="outline-primary" v-on:click="onPause()">Pause Game</b-button>
       ||
       <b-button variant="outline-primary" v-on:click="InitializeGrid()">Initialize Grid</b-button>
@@ -165,7 +168,7 @@ export default {
 
 <style scoped>
 .main {
-  background-image: url('https://images.unsplash.com/photo-1539321908154-04927596764d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1355&q=80');
+  background-image: url('https://source.unsplash.com/random/1200x705');
   width: 1200px;
   height: 705px;
   border: thick;
@@ -190,5 +193,10 @@ export default {
 }
 .completedRuns{
 float: right;
+}
+.gameHeader{
+  font-family: fantasy;
+  font-size: 45px;
+  color: cornflowerblue;
 }
 </style>
