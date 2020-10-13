@@ -8,14 +8,13 @@
         {{ this.Player_1.Cash | money }}
       </span>
       <span class="playerStat" v-b-tooltip.hover title="Remaining number of squares you may select">
-        S:{{ this.Player_1.Selections }}
+        {{ this.Player_1.Selections }}
       </span>
       <span class="playerStat" v-b-tooltip.hover title="Total Winnings (this run)">
-        TW:{{ this.Player_1.TotalWinnings | money }}
+        {{ this.Player_1.TotalWinnings | money}}
       </span>
     </div>
     <div class="title">
-      Squares
       <b-button variant="outline-primary" v-on:click="onStart()" v-b-tooltip.hover title="Pressing start cost $500">Start Game</b-button>
       <b-button variant="outline-primary" v-on:click="onPause()">Pause Game</b-button>
       ||
@@ -50,7 +49,7 @@ export default {
     return {
       Board: [],
       addedSquare: 0,
-      winnings: 0
+      winnings: 0,
     }
   },
   watch: {
@@ -60,6 +59,7 @@ export default {
   },
   filters: {
     money: function(value) {
+      if (parseInt(value) === 0) return 0;
       if (!value) return;
       return `$${value.toFixed(0)}`
     }
