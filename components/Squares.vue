@@ -28,7 +28,7 @@
         <div ref="container"></div>
       </div>
     </div>
-    <b-modal id="endScreen">The game is over, you've won {{ this.winnings | money }}</b-modal>
+    <b-modal id="endScreen">The round is over, you've won {{ this.winnings | money }}</b-modal>
   </div>
 </template>
 
