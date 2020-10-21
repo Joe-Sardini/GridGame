@@ -42,16 +42,6 @@ export default {
   components: {
     Square,
   },
-  mounted() {
-    this.createGrid();
-  },
-  data() {
-    return {
-      Board: [],
-      addedSquare: 0,
-      winnings: 0,
-    }
-  },
   watch: {
     addedSquare: function () {
       this.$store.dispatch('addSquare', this.addedSquare)
@@ -62,6 +52,19 @@ export default {
       if (parseInt(value) === 0) return 0;
       if (!value) return;
       return `$${value.toFixed(0)}`
+    }
+  },
+  computed: {
+    ...mapState(["Player_1"])
+  },
+  mounted() {
+    this.createGrid();
+  },
+  data() {
+    return {
+      Board: [],
+      addedSquare: 0,
+      winnings: 0,
     }
   },
   created() {
@@ -76,9 +79,6 @@ export default {
       }
     });
     this.si = null;
-  },
-  computed: {
-    ...mapState(["Player_1"])
   },
   methods: {
     addFunds(amount){
